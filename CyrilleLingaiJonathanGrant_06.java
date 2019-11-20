@@ -91,7 +91,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 			fileWriter.write("Shell Sorted Array\n");
 			
 			fileWriter.write("Currently Not Operable\nCase Example of Expected"
-					+ " Output Below:\n\n"); // Remove lines 95-96 when finished.
+					+ " Output Below:\n\n"); // Remove lines 93-94 when finished.
 			
 			writeToFile(shellSortedArray, fileWriter);
 			
@@ -117,7 +117,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 		try {
 					
-			for (int i = 0; i < sortedArray.length; ) {
+			for (int i = 0; i < sortedArray.length;) {
 				
 				for (int j = 0; j < 10; j++, i++) {
 					fileWriter.write(sortedArray[i] + " ");
@@ -157,7 +157,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 // ****************************************************************************
 	
 	/**
-	 * Quicksort implements the textbook case of quicksort to efficient sort the
+	 * Quicksort implements the textbook case of quicksort to efficiently sort the
 	 * array by finding a pivot, swapping values to the correct side of the pivot,
 	 * splitting each side of the pivot into subarray, and repeating until each
 	 * subarray has less than three elements.
@@ -174,9 +174,9 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 		// Sort the subarrays.
 		
-		if ( firstIndex - lastIndex + 1 < MIN_SIZE) {
+		if (firstIndex - lastIndex + 1 < MIN_SIZE) {
 			
-			insertionSort( anArray, firstIndex, lastIndex );
+			insertionSort(anArray, firstIndex, lastIndex);
 			
 		} // End if.
 		
@@ -205,11 +205,11 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 		// Sort the subarray in order.
 		
-		if ( firstIndex < lastIndex ) {
+		if (firstIndex < lastIndex) {
 			
-			insertionSort( anArray, firstIndex, lastIndex - 1 );
+			insertionSort(anArray, firstIndex, lastIndex - 1);
 			
-			insertInOrder( anArray[lastIndex], anArray, firstIndex, lastIndex - 1 );
+			insertInOrder(anArray[lastIndex], anArray, firstIndex, lastIndex - 1);
 			
 		} // End if.
 		
@@ -227,11 +227,11 @@ public class CyrilleLingaiJonathanGrant_06 {
 	 * @param firstIndex
 	 * @param lastIndex
 	 */
-	private static void insertInOrder( int anEntry, int[] anArray, int firstIndex, int lastIndex ) {
+	private static void insertInOrder(int anEntry, int[] anArray, int firstIndex, int lastIndex) {
 		
 		// Order the elements of the subarray.
 		
-		if (anEntry >= anArray[lastIndex] ) {
+		if (anEntry >= anArray[lastIndex]) {
 			anArray[lastIndex + 1] = anEntry;
 		} // End if.
 		
