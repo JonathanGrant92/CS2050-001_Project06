@@ -1,0 +1,10 @@
+
+Placeholder Text
+"Pseudo code for shell short
+List
+Space = length (list) / 2
+While (space > 0 ) {
+For ( i = 0, i + space < length, i++) {
+If ( list [i] > list [i + space] }
+Swap list [i] and list[i+ space] {
+Space = space -1"
