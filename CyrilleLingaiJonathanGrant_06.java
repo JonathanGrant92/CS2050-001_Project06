@@ -56,8 +56,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 		    // While loop till file has line
 		    while (fileScanner.hasNextInt()) {
 		    	quickSortedArray[lineNumber] = fileScanner.nextInt(); // Read the line
-		    	shellSortedArray[lineNumber] = quickSortedArray[lineNumber];
-		    	lineNumber++;
+		    	shellSortedArray[lineNumber++] = quickSortedArray[lineNumber];
 			} // End while.
 			 
 			fileScanner.close();
@@ -80,7 +79,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 			fileWriter = new FileWriter(outputFileName);
 			fileWriter.write("Quick Sorted Array\n\n");
 			
-			writeToFile(quickSortedArray, fileWriter);
+			fileWriter.write(arrayToString(quickSortedArray));;
 			
 			fileWriter.close();
 			
@@ -88,12 +87,9 @@ public class CyrilleLingaiJonathanGrant_06 {
 					Integer.toString(fileNumber++), Integer.toString(fileNumber));
 			fileWriter = new FileWriter(outputFileName);
 			
-			fileWriter.write("Shell Sorted Array\n");
+			fileWriter.write("Shell Sorted Array\n\n");
 			
-			fileWriter.write("Currently Not Operable\nCase Example of Expected"
-					+ " Output Below:\n\n"); // Remove lines 93-94 when finished.
-			
-			writeToFile(shellSortedArray, fileWriter);
+			fileWriter.write(arrayToString(shellSortedArray));
 			
 			fileWriter.close();
 			
@@ -105,34 +101,30 @@ public class CyrilleLingaiJonathanGrant_06 {
 
 	} // End main method.
 
-// ****************************************************************************	
-
+// ****************************************************************************
+	
 	/**
-	 * Writes sorted lists of integers to file with 10 integers per line.
+	 * Converts sorted lists of integers to string with 10 integers per line.
 	 * 
 	 * @param sortedArray	The sorted list of integers.
-	 * @param fileWriter	The tool used to write values to file.
 	 */
-	private static void writeToFile(int[] sortedArray, FileWriter fileWriter) {
+	private static String arrayToString(int[] sortedArray) {
 		
-		try {
-					
-			for (int i = 0; i < sortedArray.length;) {
-				
-				for (int j = 0; j < 10; j++, i++) {
-					fileWriter.write(sortedArray[i] + " ");
-				} // End for.
-				
-				fileWriter.write("\n");
-				
+		String arrayString = "";
+		
+		for (int i = 0; i < sortedArray.length;) {
+			
+			for (int j = 0; j < 10; j++, i++) {
+				arrayString += sortedArray[i] + " ";
 			} // End for.
 			
-		} // End try.
-		catch (IOException e) {
-					e.printStackTrace();
-				} // End catch.
+			arrayString += "\n";
+			
+		} // End for.
 		
-	} // End writeToFile method.
+		return arrayString;
+		
+	} // End arrayToString method.
 	
 // ****************************************************************************
 	
@@ -143,14 +135,29 @@ public class CyrilleLingaiJonathanGrant_06 {
 	 */
 	private static void shellSort(int[] presortSequence) {
 		
-		// Placeholder code; replace with shellSort() algorithm.
-		for (int i = 0; i < presortSequence.length; i++) {
-			presortSequence[i] = i;
+		// Going through different space sizes, dividing by 2 each time.
+		for( int space = presortSequence.length/2; space > 0; space /= 2 ) {
+	 
+			// For each spacing, go through each partition.
+			for( int i = space; i < presortSequence.length; i++ ) {
+     
+				// This is similar to an insertion sort.
+				int nextInsert = presortSequence[i];
+				int j;
+				
+				for( j = i; j >= space && presortSequence[j - space] > nextInsert; j -= space ) {
+        	
+					presortSequence[j] = presortSequence[j - space];
+					
+				} // End for.
+				
+				presortSequence[j] = nextInsert;
+				
+			}	// End for.
+			
 		} // End for.
 		
 	} // End shellSort method.
-	
-// ****************************************************************************
 	
 	
 	
