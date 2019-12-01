@@ -56,7 +56,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 		    // While loop till file has line
 		    while (fileScanner.hasNextInt()) {
 		    	quickSortedArray[lineNumber] = fileScanner.nextInt(); // Read the line
-		    	shellSortedArray[lineNumber++] = quickSortedArray[lineNumber];
+		    	shellSortedArray[lineNumber] = quickSortedArray[lineNumber++];
 			} // End while.
 			 
 			fileScanner.close();
