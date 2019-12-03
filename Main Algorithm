@@ -1,0 +1,5 @@
+Create two arrays of length 100.
+Read the input file’s integers to both arrays.
+Throw file not found if the file is not found.
+Sort both lists by sorting algorithms quick sort and shell sort.
+Write each list to it own file, with ten integers per line.
