@@ -104,9 +104,9 @@ public class CyrilleLingaiJonathanGrant_06 {
 // ****************************************************************************
 	
 	/**
-	 * Converts sorted lists of integers to string with 10 integers per line.
+	 * Converts a sorted list of integers to a string with 10 integers per line.
 	 * 
-	 * @param sortedArray	The sorted list of integers.
+	 * @param	sortedArray	The sorted list of integers.
 	 */
 	private static String arrayToString(int[] sortedArray) {
 		
@@ -129,29 +129,29 @@ public class CyrilleLingaiJonathanGrant_06 {
 // ****************************************************************************
 	
 	/**
+	 * Sorts integers using a shell sort algorithm.
 	 * 
-	 * @param 	presortSequence
-	 * @return 	String
+	 * @param	unsortedArray	The list of unsorted integers to sort.
 	 */
-	private static void shellSort(int[] presortSequence) {
+	private static void shellSort(int[] unsortedArray) {
 		
 		// Going through different space sizes, dividing by 2 each time.
-		for( int space = presortSequence.length/2; space > 0; space /= 2 ) {
+		for( int space = unsortedArray.length/2; space > 0; space /= 2 ) {
 	 
 			// For each spacing, go through each partition.
-			for( int i = space; i < presortSequence.length; i++ ) {
+			for( int i = space; i < unsortedArray.length; i++ ) {
      
 				// This is similar to an insertion sort.
-				int nextInsert = presortSequence[i];
+				int nextInsert = unsortedArray[i];
 				int j;
 				
-				for( j = i; j >= space && presortSequence[j - space] > nextInsert; j -= space ) {
+				for( j = i; j >= space && unsortedArray[j - space] > nextInsert; j -= space ) {
         	
-					presortSequence[j] = presortSequence[j - space];
+					unsortedArray[j] = unsortedArray[j - space];
 					
 				} // End for.
 				
-				presortSequence[j] = nextInsert;
+				unsortedArray[j] = nextInsert;
 				
 			}	// End for.
 			
@@ -166,11 +166,10 @@ public class CyrilleLingaiJonathanGrant_06 {
 	/**
 	 * Quicksort implements the textbook case of quicksort to efficiently sort the
 	 * array by finding a pivot, swapping values to the correct side of the pivot,
-	 * splitting each side of the pivot into subarray, and repeating until each
+	 * splitting each side of the pivot into subarrays, and repeating until each
 	 * subarray has less than three elements.
 	 * 
-	 * @param 	anArray
-	 * @return	String
+	 * @param 	anArray	The unsorted list of integers.
 	 */
 	private static void quickSort(int[] anArray, int firstIndex, int lastIndex) {
 		
@@ -204,9 +203,9 @@ public class CyrilleLingaiJonathanGrant_06 {
 	/**
 	 * Sort the subarray by insertion and ordering values.
 	 * 
-	 * @param anArray
-	 * @param firstIndex
-	 * @param lastIndex
+	 * @param	anArray		A sublist of integers being sorted.
+	 * @param	firstIndex	The first integer of the sublist.
+	 * @param	lastIndex	The last integer of the sublist.
 	 */
 	private static void insertionSort(int[] anArray, int firstIndex, int lastIndex) {
 		
@@ -229,10 +228,10 @@ public class CyrilleLingaiJonathanGrant_06 {
 	 * Insert the entry in the correct position relative to the values of the
 	 * first and last indices of the subarray.
 	 * 
-	 * @param anEntry
-	 * @param anArray
-	 * @param firstIndex
-	 * @param lastIndex
+	 * @param	anEntry		The integer being swapped into the correct position.
+	 * @param	anArray		The sublist of integers being sorted.
+	 * @param	firstIndex	The first integer of the sublist.
+	 * @param	lastIndex	The last integer of the sublist.
 	 */
 	private static void insertInOrder(int anEntry, int[] anArray, int firstIndex, int lastIndex) {
 		
@@ -256,20 +255,20 @@ public class CyrilleLingaiJonathanGrant_06 {
 	
 // ****************************************************************************
 	/**
-	 * Returns the pivot index of the newly partitioned array.
+	 * Returns the middle integers of a newly created sublist of integers.
 	 * 
-	 * @param anArray
-	 * @param firstIndex
-	 * @param lastIndex
-	 * @return
+	 * @param	anArray		A sublist of integers being sorted.
+	 * @param	firstIndex	The first integer of the sublist.
+	 * @param	lastIndex	The last integer of the sublist.
+	 * @return	pivotIndex	The middle integer of the sublist.
 	 */
 	private static int divideArray(int[] anArray, int firstIndex, int lastIndex) {
 		
 		// Declaring Local Variables.
 		
-		int temp = 0;
+		int temp = 0;				// Temporary memory for integer being compared.
 		int midIndex = (lastIndex - firstIndex) / 2;
-		int leftIndex = 0;
+		int leftIndex = 0;			// Integer to the lieft of the 
 		int rightIndex = 0;
 		int pivotIndex = 0;
 		int pivotValue = 0;
