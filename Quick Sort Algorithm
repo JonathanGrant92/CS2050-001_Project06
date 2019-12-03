@@ -1,0 +1,22 @@
+Quick Sort Pseudo-code
+
+Compare the first entry to the last entry.
+If the first entry is greater than the last entry, swap them.
+Compare the first entry to the middle entry.
+If the first entry is greater than the middle entry, swap them.
+The middle entry is the pivot.
+
+Swap the pivot with the second to last entry in the list.
+Iterate the list from the second entry for the first entry greater than or equal to the pivot.
+Assign the left index this entry.
+Iterate the list from the third to last entry for the first entry that is less than or equal to the pivot.
+Assign the right index this entry.
+If the left index is less than the right index, swap the entries.
+Repeat iteration of the list until an entry is equal to the pivot.
+Swap the left index with the pivot entry.
+
+Partition the array by the pivot.
+If the sub array is less than four entries, call insertion sort or shell sort.
+
+Call the quick sort method with the less than sub array, the first entry and the entry before the pivot.
+Call the quick sort method with the greater than sub array, the entry after the pivot, and the last entry.
