@@ -2,8 +2,7 @@ package CyrilleLingaiJonathanGrant_06;
 
 /*
  * ComputerScience_02_01
- * Write the student and gradeItem classes to track students and their grades 
- * for all enrolled courses at MSU Denver. 
+ * Sort lists of integers by shell sorting and quick sorting algorithms.
  * JonathanGrant & CyrilleLingai
  * Integer Lists Sorting Algorithms Program_06
  * Windows 10 Eclipse IDE JRE 1.8
@@ -23,7 +22,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Sort lists of integers by shell sorting and quick sorting algorithms.
+ * Read lists of integers for sorting and write the sorted lists to files.
  * 
  * @author Cyrille Lingai, Grant Jonathan.
  * @version 12/05/19.
