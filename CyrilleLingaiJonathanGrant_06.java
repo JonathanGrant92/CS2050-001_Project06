@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 /**
  * 
- * The Integer Sorting Program.
+ * Sort lists of integers by shell sorting and quick sorting algorithms.
  * 
  * @author Cyrille Lingai, Grant Jonathan.
- * @version 11/20/19.
+ * @version 12/05/19.
  */
 
 public class CyrilleLingaiJonathanGrant_06 {
@@ -20,7 +20,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 									// The file of random integers.
 	
 	/**
-	 * Main execution of program.
+	 * 
 	 * 
 	 * @param		args.
 	 * @throws		FileNotFoundException 	If the file is not found.
@@ -38,7 +38,6 @@ public class CyrilleLingaiJonathanGrant_06 {
 									// The quick sorted integers to write to file.
 		int[] shellSortedArray = new int[sequenceLength];	
 									// The shell sorted integers to write to file.
-		
 		
 		String outputFileName = "2050 Project 06_Output0X.txt";
 									// The file of corresponding sorted integers.
@@ -60,15 +59,17 @@ public class CyrilleLingaiJonathanGrant_06 {
 			} // End while.
 			 
 			fileScanner.close();
-			    
-			quickSort(quickSortedArray, 0, sequenceLength - 1);
-			shellSort(shellSortedArray);
 			
 		} // End try.
 
 		catch (FileNotFoundException e) {
 			System.err.println(e);
 		} // End catch.
+		
+		// Sort both lists of integers.
+		
+		quickSort(quickSortedArray, 0, sequenceLength - 1);
+		shellSort(shellSortedArray);
 		
 		// Attempt to find pre-existing file or create new one of specified name,
 		// and write the postfix expressions to file.
@@ -104,7 +105,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 // ****************************************************************************
 	
 	/**
-	 * Converts a sorted list of integers to a string with 10 integers per line.
+	 * Convert a sorted list of integers to a string with 10 integers per line for writing to file.
 	 * 
 	 * @param	sortedArray	The sorted list of integers.
 	 */
@@ -129,29 +130,33 @@ public class CyrilleLingaiJonathanGrant_06 {
 // ****************************************************************************
 	
 	/**
-	 * Sorts integers using a shell sort algorithm.
+	 * Sort integers using the shell sorting algorithm.
 	 * 
 	 * @param	unsortedArray	The list of unsorted integers to sort.
 	 */
 	private static void shellSort(int[] unsortedArray) {
 		
-		// Going through different space sizes, dividing by 2 each time.
-		for( int space = unsortedArray.length/2; space > 0; space /= 2 ) {
+		// Declaring local variables.
+		
+		int nextInteger;	// The next integer in the sublist.
+		int index = 0;		// The current sublist of integers.
+		
+		// Iterate the list at intevals, dividing by 2 each time.
+		for (int space = unsortedArray.length/2; space > 0; space /= 2) {
 	 
-			// For each spacing, go through each partition.
-			for( int i = space; i < unsortedArray.length; i++ ) {
+			// Scan the sublist by each interval.
+			for (int i = space; i < unsortedArray.length; i++) {
      
-				// This is similar to an insertion sort.
-				int nextInsert = unsortedArray[i];
-				int j;
+				// Sort the sublist.
+				nextInteger = unsortedArray[i];
 				
-				for( j = i; j >= space && unsortedArray[j - space] > nextInsert; j -= space ) {
-        	
-					unsortedArray[j] = unsortedArray[j - space];
+				for (index = i; index >= space && unsortedArray[index - space] > nextInteger; index -= space) {
+					
+					unsortedArray[index] = unsortedArray[index - space];
 					
 				} // End for.
 				
-				unsortedArray[j] = nextInsert;
+				unsortedArray[index] = nextInteger;
 				
 			}	// End for.
 			
@@ -159,144 +164,58 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 	} // End shellSort method.
 	
-	
-	
 // ****************************************************************************
 	
 	/**
 	 * Quicksort implements the textbook case of quicksort to efficiently sort the
-	 * array by finding a pivot, swapping values to the correct side of the pivot,
-	 * splitting each side of the pivot into subarrays, and repeating until each
-	 * subarray has less than three elements.
+	 * list by finding a pivot, swapping integers to the correct side of the pivot,
+	 * splitting each side of the pivot into sublists, and repeating until each
+	 * sublist has less than four elements.
 	 * 
 	 * @param 	anArray	The unsorted list of integers.
 	 */
 	private static void quickSort(int[] anArray, int firstIndex, int lastIndex) {
 		
-		// Declaring Local Variables.
+		// Declaring local variables.
 		
-		int pivotIndex = 0;
-		final int MIN_SIZE = 3;
+		int pivotIndex = 0;				// The pivot of the sublist.
+		final int MIN_SIZE = 4;			// The minimum size of the list.
+		int temp = 0;					// Index placeholder to swap two integers of the list.
+		int midIndex = (lastIndex - firstIndex) / 2; // Find the middle integer of the list.		
+		int leftIndex = firstIndex + 1;	// Integer to the left of the 
+		int rightIndex = lastIndex - 2;	// Right index of the sublist.
+		int pivotValue = 0;				// Left index of the sublist.
 		
 		// Sort the subarrays.
 		
-		if (firstIndex - lastIndex + 1 < MIN_SIZE) {
+		if (lastIndex - firstIndex < MIN_SIZE) {
 			
-			insertionSort(anArray, firstIndex, lastIndex);
+			shellSort(anArray); // Sort the sublist using insertion sort if the length is less than three.
 			
 		} // End if.
 		
 		else {
 			
-			pivotIndex = divideArray(anArray, firstIndex, lastIndex);
+			// Exchange values of middle and last integers of sublist.
 			
-			quickSort(anArray, firstIndex, pivotIndex - 1);
-			quickSort(anArray, pivotIndex + 1, lastIndex);
+			temp = anArray[midIndex];
+			anArray[midIndex] = anArray[lastIndex - 1];
+			anArray[lastIndex - 1] = temp;
 			
-		} // End else.
-		
-		
-	} // End quickSort method.
-
-// ****************************************************************************
-	
-	/**
-	 * Sort the subarray by insertion and ordering values.
-	 * 
-	 * @param	anArray		A sublist of integers being sorted.
-	 * @param	firstIndex	The first integer of the sublist.
-	 * @param	lastIndex	The last integer of the sublist.
-	 */
-	private static void insertionSort(int[] anArray, int firstIndex, int lastIndex) {
-		
-		// Sort the subarray in order.
-		
-		if (firstIndex < lastIndex) {
+			// Find the new pivot of sublist.
 			
-			insertionSort(anArray, firstIndex, lastIndex - 1);
+			pivotIndex = lastIndex - 1;
+			pivotValue = anArray[pivotIndex];
 			
-			insertInOrder(anArray[lastIndex], anArray, firstIndex, lastIndex - 1);
+			// Scan the sublist and swap integers.
+				
+			while (anArray[leftIndex] < pivotValue) {
+				leftIndex++;
+			} // End while.
 			
-		} // End if.
-		
-	} // End insertionSort method.
-	
-// ****************************************************************************
-	
-	/**
-	 * 
-	 * Insert the entry in the correct position relative to the values of the
-	 * first and last indices of the subarray.
-	 * 
-	 * @param	anEntry		The integer being swapped into the correct position.
-	 * @param	anArray		The sublist of integers being sorted.
-	 * @param	firstIndex	The first integer of the sublist.
-	 * @param	lastIndex	The last integer of the sublist.
-	 */
-	private static void insertInOrder(int anEntry, int[] anArray, int firstIndex, int lastIndex) {
-		
-		// Order the elements of the subarray.
-		
-		if (anEntry >= anArray[lastIndex]) {
-			anArray[lastIndex + 1] = anEntry;
-		} // End if.
-		
-		else if (firstIndex < lastIndex) {
-			anArray[lastIndex + 1] = anArray[lastIndex];
-			insertInOrder(anEntry, anArray, firstIndex, lastIndex - 1);
-		} // End else if.
-		
-		else {
-			anArray[lastIndex + 1] = anArray[lastIndex];
-			anArray[lastIndex] = anEntry;
-		} // End else.
-		
-	} // End insertInOrder method.
-	
-// ****************************************************************************
-	/**
-	 * Returns the middle integers of a newly created sublist of integers.
-	 * 
-	 * @param	anArray		A sublist of integers being sorted.
-	 * @param	firstIndex	The first integer of the sublist.
-	 * @param	lastIndex	The last integer of the sublist.
-	 * @return	pivotIndex	The middle integer of the sublist.
-	 */
-	private static int divideArray(int[] anArray, int firstIndex, int lastIndex) {
-		
-		// Declaring Local Variables.
-		
-		int temp = 0;				// Temporary memory for integer being compared.
-		int midIndex = (lastIndex - firstIndex) / 2;
-		int leftIndex = 0;			// Integer to the lieft of the 
-		int rightIndex = 0;
-		int pivotIndex = 0;
-		int pivotValue = 0;
-		boolean isDivided = false;
-		
-		// Exchange values of middle and last indices.
-		
-		temp = anArray[midIndex];
-		anArray[midIndex] = anArray[lastIndex - 1];
-		anArray[lastIndex - 1] = temp;
-		
-		// Find the new pivot.
-		
-		pivotIndex = lastIndex - 1;
-		pivotValue = anArray[pivotIndex];
-		
-		// Set the range of the sub array.
-		
-		leftIndex = firstIndex + 1;
-		rightIndex = lastIndex - 2;
-		
-		// Process the array from left to right and exchange left and right indices.
-		
-		while (!isDivided) {
-			
-			for (leftIndex++; anArray[leftIndex] < pivotValue;) {} // End for.
-			
-			for (rightIndex--; anArray[rightIndex] > pivotValue;) {} // End for.
+			while (anArray[rightIndex] > pivotValue) {
+				rightIndex++;
+			} // End while.
 			
 			if (leftIndex < rightIndex) {
 				
@@ -306,21 +225,18 @@ public class CyrilleLingaiJonathanGrant_06 {
 				
 			} // End if.
 			
-			else {
-				isDivided = true;
-			} // End else.
+			// Swap the pivot and leftmost integer of the sublist.
 			
-		} // End while.
+			temp = anArray[pivotIndex];
+			anArray[pivotIndex] = anArray[leftIndex];
+			anArray[leftIndex] = temp;
+			pivotIndex = leftIndex;
+			
+			quickSort(anArray, firstIndex, pivotIndex - 1);
+			quickSort(anArray, pivotIndex + 1, lastIndex);
+			
+		} // End else.
 		
-		// Exchange the pivot and the left index.
-		
-		temp = anArray[pivotIndex];
-		anArray[pivotIndex] = anArray[leftIndex];
-		anArray[leftIndex] = temp;
-		pivotIndex = leftIndex;
-		
-		return pivotIndex;
-		
-	} // End divideArray method.
+	} // End quickSort method.
 	
 } // End class.
