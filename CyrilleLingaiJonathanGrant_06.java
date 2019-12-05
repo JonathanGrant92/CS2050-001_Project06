@@ -31,11 +31,11 @@ import java.util.Scanner;
 
 public class CyrilleLingaiJonathanGrant_06 {
 	
-	// Declaring class variables.
+	// Declaring class constants.
 	
-	private final static String inputFileName = "2050 Project 06_Input.txt";
+	private final static String INPUT_FILENAME = "2050 Project 06_Input.txt";
 									// The file of random integers.
-	private final static int sequenceLength = 100;
+	private final static int LIST_LENGTH = 100;
 									// The length of the list of integers.
 	
 	/**
@@ -54,15 +54,15 @@ public class CyrilleLingaiJonathanGrant_06 {
 		int lineNumber = 0;			// Track the line an expression is scanned from.
 		int fileNumber = 1; 		// The file number to identify and scan files.
 		
-		int[] quickSortedArray = new int[sequenceLength];
+		int[] quickSortedArray = new int[LIST_LENGTH];
 									// The quick sorted integers to write to file.
-		int[] shellSortedArray = new int[sequenceLength];	
+		int[] shellSortedArray = new int[LIST_LENGTH];	
 									// The shell sorted integers to write to file.
 		
 		String outputFileName = "2050 Project 06_OutputX.txt";
 									// The file of corresponding sorted integers.
 		
-		File inputFile = new File(inputFileName);	// The tool for openning files.
+		File inputFile = new File(INPUT_FILENAME);	// The tool for openning files.
 		FileWriter fileWriter = null;				// The tool for writing to files.
 		Scanner fileScanner = null;					// The tool to read file.
 		
@@ -89,7 +89,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 		// Sort both lists of integers.
 		
 		shellSort(shellSortedArray);
-		quickSort(quickSortedArray, 0, sequenceLength - 1);
+		quickSort(quickSortedArray, 0, LIST_LENGTH - 1);
 		
 		// Attempt to create new files of the specified names,
 		// and write the sorted lists to these files.
@@ -130,6 +130,7 @@ public class CyrilleLingaiJonathanGrant_06 {
 	 * for writing to file.
 	 * 
 	 * @param	sortedArray	The sorted list of integers.
+	 * @return 	arrayString	The list of sorted integers for writing to file.
 	 */
 	
 	private static String arrayToString(int[] sortedArray) {
@@ -159,10 +160,10 @@ public class CyrilleLingaiJonathanGrant_06 {
 	/**
 	 * Sort integers using the shell sorting algorithm.
 	 * 
-	 * @param	unsortedArray	The list of unsorted integers to sort.
+	 * @param	unsortedList	The list of unsorted integers to sort.
 	 */
 	
-	private static void shellSort(int[] unsortedArray) {
+	private static void shellSort(int[] unsortedList) {
 		
 		// Declaring local variables.
 		
@@ -171,25 +172,25 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 		// Iterate the list at intevals, dividing by 2 each time.
 		
-		for (int space = unsortedArray.length/2; space > 0; space /= 2) {
+		for (int space = unsortedList.length/2; space > 0; space /= 2) {
 	 
 			// Scan the sublist by each interval.
 			
-			for (int i = space; i < unsortedArray.length; i++) {
+			for (int i = space; i < unsortedList.length; i++) {
      
 				// Sort the sublist.
 				
-				nextInteger = unsortedArray[i];
+				nextInteger = unsortedList[i];
 				
 				for (index = i; index >= space 
-						&& unsortedArray[index - space] > nextInteger; 
+						&& unsortedList[index - space] > nextInteger; 
 						index -= space) {
 					
-					unsortedArray[index] = unsortedArray[index - space];
+					unsortedList[index] = unsortedList[index - space];
 					
 				} // End for.
 				
-				unsortedArray[index] = nextInteger;
+				unsortedList[index] = nextInteger;
 				
 			}	// End for.
 			
@@ -206,16 +207,19 @@ public class CyrilleLingaiJonathanGrant_06 {
 	 * sublist has less than four elements. Short sublists of less than four
 	 * integers are sorted using shell sort: an improved insertion sort.
 	 * 
-	 * @param 	anArray	The unsorted list of integers.
+	 * @param 	sortingList	The list or sublist of integers being recursively sorted.
 	 */
 	
-	private static void quickSort(int[] anArray, int firstIndex, int lastIndex) {
+	private static void quickSort(int[] sortingList, int firstIndex, int lastIndex) {
+		
+		// Declaring local constants.
+		
+		final int MIN_SIZE = 4;			// The minimum size of the list.
 		
 		// Declaring local variables.
 		
 		int pivotIndex = 0;				// The pivot of the sublist.
-		final int MIN_SIZE = 4;			// The minimum size of the list.
-		int temp = 0;					// Placeholder to swap two integers.
+		int tempIndex = 0;				// Placeholder to swap two integers.
 		int midIndex = (lastIndex - firstIndex) / 2; 
 										// Find the middle integer of the list.		
 		int leftIndex = firstIndex + 1;	// Leftmost integer of the sublist.
@@ -227,51 +231,53 @@ public class CyrilleLingaiJonathanGrant_06 {
 		
 		if (lastIndex - firstIndex < MIN_SIZE) {
 			
-			shellSort(anArray); 
+			shellSort(sortingList); 
 			
 		} // End if.
 		else {
 			
-			// Exchange values of middle and last integers of sublist.
+			// Exchange integers of middle and last indices of the sublist.
 			
-			temp = anArray[midIndex];
-			anArray[midIndex] = anArray[lastIndex - 1];
-			anArray[lastIndex - 1] = temp;
+			tempIndex = sortingList[midIndex];
+			sortingList[midIndex] = sortingList[lastIndex - 1];
+			sortingList[lastIndex - 1] = tempIndex;
 			
 			// Find the new pivot of sublist.
 			
 			pivotIndex = lastIndex - 1;
-			pivotValue = anArray[pivotIndex];
+			pivotValue = sortingList[pivotIndex];
 			
 			// Scan the sublist and swap integers.
 				
-			while (anArray[leftIndex] < pivotValue) {
+			while (sortingList[leftIndex] < pivotValue) {
 				leftIndex++;
 			} // End while.
 			
-			while (anArray[rightIndex] > pivotValue) {
+			while (sortingList[rightIndex] > pivotValue) {
 				rightIndex++;
 			} // End while.
 			
+			// If the left index overlaps the right index, swap them.
+			
 			if (leftIndex < rightIndex) {
 				
-				temp = anArray[leftIndex];
-				anArray[leftIndex] = anArray[rightIndex];
-				anArray[rightIndex] = temp;
+				tempIndex = sortingList[leftIndex];
+				sortingList[leftIndex] = sortingList[rightIndex];
+				sortingList[rightIndex] = tempIndex;
 				
 			} // End if.
 			
 			// Swap the pivot and leftmost integer of the sublist.
 			
-			temp = anArray[pivotIndex];
-			anArray[pivotIndex] = anArray[leftIndex];
-			anArray[leftIndex] = temp;
+			tempIndex = sortingList[pivotIndex];
+			sortingList[pivotIndex] = sortingList[leftIndex];
+			sortingList[leftIndex] = tempIndex;
 			pivotIndex = leftIndex;
 			
 			// Recursively quick sort the new sublists.
 			
-			quickSort(anArray, firstIndex, pivotIndex - 1);
-			quickSort(anArray, pivotIndex + 1, lastIndex);
+			quickSort(sortingList, firstIndex, pivotIndex - 1);
+			quickSort(sortingList, pivotIndex + 1, lastIndex);
 			
 		} // End else.
 		
